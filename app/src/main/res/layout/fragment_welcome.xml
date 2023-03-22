@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:fillViewport="true"
+
+>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		 android:layout_width="match_parent"
+		 android:layout_height="wrap_content"
+ 	>
+
+		<ImageView
+			android:id="@+id/iv_logo"
+			android:layout_width="wrap_content"
+			android:layout_height="150dp"
+			android:layout_margin="32dp"
+			android:contentDescription="@string/welcome_logo"
+			app:srcCompat="@drawable/ic_brain"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+		/>
+
+		<TextView
+				android:id="@+id/tv_title"
+				android:text="@string/welcome_title"
+				android:textSize="24sp"
+				android:layout_margin="16dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintTop_toBottomOf="@+id/iv_logo"
+		/>
+
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="16sp"
+				android:layout_margin="16dp"
+				android:text="@string/game_rules"
+				app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+		<Button
+				android:id="@+id/btn_understand"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/button_understand"
+				app:layout_constraintBottom_toBottomOf="parent" />
+	</androidx.constraintlayout.widget.ConstraintLayout >
+</ScrollView>
