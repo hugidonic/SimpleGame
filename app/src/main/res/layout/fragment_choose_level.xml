@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".presentation.MainActivity"
+>
+	<TextView
+			android:id="@+id/tv_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/choose_level_title"
+			android:textSize="24sp"
+			android:textStyle="bold"
+			android:layout_margin="16dp"
+	/>
+
+	<Button
+			android:id="@+id/btn_level_test"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="16dp"
+			android:text="@string/test_level"
+	/>
+
+	<Button
+			android:id="@+id/btn_level_easy"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="16dp"
+			android:text="@string/easy_level"
+			android:backgroundTint="@android:color/holo_green_light"
+	/>
+
+	<Button
+			android:id="@+id/btn_level_normal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="16dp"
+			android:text="@string/normal_level"
+			android:backgroundTint="@android:color/holo_orange_light"
+	/>
+
+	<Button
+			android:id="@+id/btn_level_hard"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="16dp"
+			android:text="@string/hard_level"
+			android:backgroundTint="@android:color/holo_red_light"
+	/>
+
+</LinearLayout>
