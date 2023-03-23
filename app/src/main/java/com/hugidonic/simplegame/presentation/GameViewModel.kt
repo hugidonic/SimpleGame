@@ -14,14 +14,13 @@ import com.hugidonic.simplegame.domain.entity.Question
 import com.hugidonic.simplegame.domain.usecases.GenerateQuestionUseCase
 import com.hugidonic.simplegame.domain.usecases.GetGameSettingsUseCase
 
-class GameViewModel(application: Application): AndroidViewModel(application) {
+class GameViewModel(
+	private val application: Application,
+	private val level: Level
+): AndroidViewModel(application) {
 
 //	Lateinit vars
 	private lateinit var gameSettings: GameSettings
-	private lateinit var level: Level
-
-//	Context
-	private val context = application
 
 //	Repository
 	private val repo = GameRepositoryImpl
@@ -72,8 +71,12 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 	private var countOfRightAnswers = 0
 	private var countOfQuestions = 0
 
-	fun startGame(level: Level) {
-		getGameSettings(level)
+	init {
+		startGame()
+	}
+
+	private fun startGame() {
+		getGameSettings()
 		startTimer()
 		generateQuestion()
 		updateProgress()
@@ -85,8 +88,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 		generateQuestion()
 	}
 
-	private fun getGameSettings(level: Level) {
-		this.level = level
+	private fun getGameSettings() {
 		this.gameSettings = getGameSettingsUseCase(level)
 		_minPercent.value = gameSettings.minPercentageOfRightAnswers
 	}
@@ -95,7 +97,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 		val percent = calculatePercent()
 		_percentOfRightAnswers.value = percent
 		_progressAnswers.value = String.format(
-			context.resources.getString(R.string.progress_answers),
+			application.resources.getString(R.string.progress_answers),
 			countOfRightAnswers,
 			gameSettings.minCountOfRightAnswers
 		)

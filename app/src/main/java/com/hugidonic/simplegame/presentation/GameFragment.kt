@@ -16,12 +16,17 @@ import com.hugidonic.simplegame.domain.entity.Level
 import com.hugidonic.simplegame.domain.entity.Question
 
 class GameFragment: Fragment() {
-//	ViewModel
+//	View model factory
+	private val viewModelFactory by lazy {
+		GameViewModelFactory(
+			requireActivity().application,
+			level
+		)
+	}
+
+	//	ViewModel
 	private val viewModel by lazy {
-		ViewModelProvider(
-			this,
-			ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-		)[GameViewModel::class.java]
+		ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
 	}
 
 	private val tvOptions by lazy {
@@ -56,7 +61,6 @@ class GameFragment: Fragment() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
-		viewModel.startGame(level)
 
 //		Generate question
 		viewModel.question.observe(viewLifecycleOwner) {
