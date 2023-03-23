@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.hugidonic.simplegame.R
 import com.hugidonic.simplegame.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment: Fragment() {
@@ -22,8 +23,23 @@ class WelcomeFragment: Fragment() {
 		return binding.root
 	}
 
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		binding.btnUnderstand.setOnClickListener {
+			launchChooseLevelFragment()
+		}
+	}
+
 	override fun onDestroyView() {
 		super.onDestroyView()
 		_binding = null
 	}
-} 
+
+	private fun launchChooseLevelFragment() {
+		requireActivity().supportFragmentManager
+			.beginTransaction()
+			.replace(R.id.main_container, ChooseLevelFragment.newInstance())
+			.addToBackStack(ChooseLevelFragment.TAG)
+			.commit()
+	}
+}
