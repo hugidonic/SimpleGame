@@ -1,33 +1,28 @@
 package com.hugidonic.simplegame.presentation.viewmodel
 
-import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hugidonic.simplegame.R
-import com.hugidonic.data.GameRepositoryImpl
+import androidx.lifecycle.ViewModel
 import com.hugidonic.domain.entity.GameResult
 import com.hugidonic.domain.entity.GameSettings
 import com.hugidonic.domain.entity.Level
 import com.hugidonic.domain.entity.Question
+import com.hugidonic.domain.repository.GameRepository
 import com.hugidonic.domain.usecases.GenerateQuestionUseCase
 import com.hugidonic.domain.usecases.GetGameSettingsUseCase
+import javax.inject.Inject
 
-class GameViewModel(
-	private val application: Application,
-	private val level: Level
-): AndroidViewModel(application) {
+class GameViewModel (
+	private val generateQuestionUseCase: GenerateQuestionUseCase,
+	private val getGameSettingsUseCase: GetGameSettingsUseCase,
+//	Assisted
+	private val level: Level,
+	private val progressAnswersString: String,
+): ViewModel() {
 
 //	Lateinit vars
 	private lateinit var gameSettings: GameSettings
-
-//	Repository
-	private val repo = GameRepositoryImpl()
-
-//	UseCases
-	private val generateQuestionUseCase = GenerateQuestionUseCase(repo)
-	private val getGameSettingsUseCase = GetGameSettingsUseCase(repo)
 
 //	Timer
 	private var timer: CountDownTimer? = null
@@ -97,7 +92,7 @@ class GameViewModel(
 		val percent = calculatePercent()
 		_percentOfRightAnswers.value = percent
 		_progressAnswers.value = String.format(
-			application.resources.getString(R.string.progress_answers),
+			progressAnswersString,
 			countOfRightAnswers,
 			gameSettings.minCountOfRightAnswers
 		)

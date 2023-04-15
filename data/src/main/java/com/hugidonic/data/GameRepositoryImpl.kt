@@ -8,13 +8,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-class GameRepositoryImpl(): GameRepository {
-
-	companion object {
-		private const val MIN_SUM_VALUE = 2
-		private const val MIN_ANSWER_VALUE = 1
-	}
-
+class GameRepositoryImpl: GameRepository {
 
 	override fun generateQuestion(maxSumValue: Int, countOfOptions: Int): Question {
 		val sum = Random.nextInt(MIN_SUM_VALUE, maxSumValue+1)
@@ -70,5 +64,9 @@ class GameRepositoryImpl(): GameRepository {
 		}
 	}
 
+	companion object {
+		private const val MIN_SUM_VALUE = 2
+		private const val MIN_ANSWER_VALUE = 1
+	}
 
 }

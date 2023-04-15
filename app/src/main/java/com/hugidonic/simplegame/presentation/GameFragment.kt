@@ -1,5 +1,6 @@
 package com.hugidonic.simplegame.presentation
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,29 +9,35 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.hugidonic.domain.entity.GameResult
+import com.hugidonic.simplegame.R
 import com.hugidonic.simplegame.databinding.FragmentGameBinding
+import com.hugidonic.simplegame.di.appComponent
 import com.hugidonic.simplegame.presentation.viewmodel.GameViewModel
 import com.hugidonic.simplegame.presentation.viewmodel.GameViewModelFactory
+import javax.inject.Inject
 
 class GameFragment: Fragment() {
 	//	Arguments
 	private val args by navArgs<GameFragmentArgs>()
 
-	//	View model factory
-	private val viewModelFactory by lazy {
-		GameViewModelFactory(
-			requireActivity().application,
-			args.level
-		)
-	}
+	@Inject
+	lateinit var factory: GameViewModelFactory.Factory
 
 	//	ViewModel
-	private val viewModel by lazy {
-		ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
+	private val viewModel by viewModels<GameViewModel> {
+		factory.create(
+			level = args.level,
+			progressAnswersString = getString(R.string.progress_answers))
+	}
+
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+		requireContext().appComponent.inject(this)
 	}
 
 	private val tvOptions by lazy {
