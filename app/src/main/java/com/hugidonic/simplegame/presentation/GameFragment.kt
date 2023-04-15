@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.hugidonic.domain.entity.GameResult
 import com.hugidonic.simplegame.databinding.FragmentGameBinding
-import com.hugidonic.simplegame.domain.entity.GameResult
-import com.hugidonic.simplegame.domain.entity.Question
+import com.hugidonic.simplegame.presentation.viewmodel.GameViewModel
+import com.hugidonic.simplegame.presentation.viewmodel.GameViewModelFactory
 
 class GameFragment: Fragment() {
 	//	Arguments
@@ -109,7 +110,7 @@ class GameFragment: Fragment() {
 		return ContextCompat.getColor(requireContext(), colorResId)
 	}
 
-	private fun initQuestion(question: Question) = with(binding) {
+	private fun initQuestion(question: com.hugidonic.domain.entity.Question) = with(binding) {
 		tvSum.text = question.sum.toString()
 		tvLeftNumber.text = question.visibleNumber.toString()
 		for (i in 0 until tvOptions.size) {

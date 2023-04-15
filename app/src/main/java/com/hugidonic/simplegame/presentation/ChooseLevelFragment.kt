@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.hugidonic.domain.entity.Level
 import com.hugidonic.simplegame.databinding.FragmentChooseLevelBinding
-import com.hugidonic.simplegame.domain.entity.Level
 
 class ChooseLevelFragment: Fragment() {
 
