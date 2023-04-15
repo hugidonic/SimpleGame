@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hugidonic.simplegame.R
-import com.hugidonic.simplegame.data.GameRepositoryImpl
+import com.hugidonic.data.GameRepositoryImpl
 import com.hugidonic.domain.entity.GameResult
 import com.hugidonic.domain.entity.GameSettings
 import com.hugidonic.domain.entity.Level
@@ -16,26 +16,25 @@ import com.hugidonic.domain.usecases.GetGameSettingsUseCase
 
 class GameViewModel(
 	private val application: Application,
-	private val level: com.hugidonic.domain.entity.Level
+	private val level: Level
 ): AndroidViewModel(application) {
 
 //	Lateinit vars
-	private lateinit var gameSettings: com.hugidonic.domain.entity.GameSettings
+	private lateinit var gameSettings: GameSettings
 
 //	Repository
-	private val repo = GameRepositoryImpl
+	private val repo = GameRepositoryImpl()
 
 //	UseCases
-	private val generateQuestionUseCase =
-	com.hugidonic.domain.usecases.GenerateQuestionUseCase(repo)
-	private val getGameSettingsUseCase = com.hugidonic.domain.usecases.GetGameSettingsUseCase(repo)
+	private val generateQuestionUseCase = GenerateQuestionUseCase(repo)
+	private val getGameSettingsUseCase = GetGameSettingsUseCase(repo)
 
 //	Timer
 	private var timer: CountDownTimer? = null
 
 //	LiveData
-	private val _question = MutableLiveData<com.hugidonic.domain.entity.Question>()
-	val question: LiveData<com.hugidonic.domain.entity.Question>
+	private val _question = MutableLiveData<Question>()
+	val question: LiveData<Question>
 		get() = _question
 
 	private val _formattedTime = MutableLiveData<String>()
@@ -65,8 +64,8 @@ class GameViewModel(
 		get() = _enoughPercent
 
 //	Game result
-	private val _gameResult = MutableLiveData<com.hugidonic.domain.entity.GameResult>()
-	val gameResult: LiveData<com.hugidonic.domain.entity.GameResult>
+	private val _gameResult = MutableLiveData<GameResult>()
+	val gameResult: LiveData<GameResult>
 		get() = _gameResult
 
 	private var countOfRightAnswers = 0
@@ -145,7 +144,7 @@ class GameViewModel(
 	}
 
 	private fun finishGame() {
-		_gameResult.value = com.hugidonic.domain.entity.GameResult(
+		_gameResult.value = GameResult(
 			enoughCount.value == true
 					&& enoughPercent.value == true,
 			countOfRightAnswers,
